@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Blog Post{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+    {% if user.id == post.author.id %} 
+    <h1>Are you sure you want to delete {{post.title}}?</h1>
+    <br>
+    <div class="form-group">
+    <form method="POST" action="">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Yes</button>
+        <a href="{% url 'home' %}" class="btn btn-secondary">No</a>
+    </div>
+    {% else %}
+
+        <h1>Please try logging in first</h1>
+
+    {% endif %}
+{% else %}
+
+    <h1>Please try logging in first</h1>
+
+{% endif %}
+
+
+{% endblock %}

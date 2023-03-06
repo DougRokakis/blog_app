@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+<h1>Login</h1>
+<br>
+<div class="form-group">
+<form method="POST" action="">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit" class="btn btn-secondary">Login</button>
+</div>
+
+
+<script>
+
+    var form = document.getElementsByTagName('input')
+
+    for (var field in form){
+            form[field].className += 'form-control'
+    }
+</script>
+{% endblock %}

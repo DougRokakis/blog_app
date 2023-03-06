@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Blog Post{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+    {% if user.id == post.author.id %}
+        <h1>Update Post</h1>
+        <br>
+        <div class="form-group">
+        <form method="POST" action="">
+            {% csrf_token %}
+            {{form.media}}
+            {{form.as_p}}
+            <button type="submit" class="btn btn-secondary">Update</button>
+        </div>
+        
+        {% else %}
+
+        <h1>Please try logging in first</h1>
+
+        {% endif %}
+{% else %}
+    <h1>Please try logging in first</h1>
+{% endif %}
+
+{% endblock %}

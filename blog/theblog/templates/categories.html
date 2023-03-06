@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if category_posts %}
+
+<h1>{{ cats }}</h1>
+
+<ul>
+    {% for post in category_posts %}
+        <li><a href="{% url 'article-detail' post.pk %}">{{post.title}}</a> - {{post.category}} - {{post.author}} - {{post.publication_date}}{% if user.is_authenticated %} - <small><a href="{% url 'update_post' post.pk %}">(Edit)</a> | <a href="{% url 'delete_post' post.pk %}">(Delete)</a></small>{% endif %}<br/>
+        {{post.body|slice:":200"|safe}}</li> 
+        {% comment %} {{post.body|slice:":200"}} exhibits body of blog post but with a limit of 200 characters. The addition of |safe does not allow fot html alterations made while editing the post to show, only the actual end result of the html alteration presents itself {% endcomment %}
+    {% endfor %}
+</ul>
+
+{% else %}
+    <h2>Sorry, this page doesn't exist</h2>
+
+{%endif%}
+
+{% endblock %}

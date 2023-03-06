@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+    <h1>Welcome back {{user.username}}. Please share your thoughts!</h1>
+{% else %}
+    <h1>Welcome to The Blog. Please register or login.</h1>
+{% endif %}
+<ul>
+    {% for post in object_list %}
+        <li>
+            <a href="{% url 'article-detail' post.pk %}">
+                {{post.title}}
+            </a>  
+            - <a href="{% url 'category' post.category|slugify %}">
+                {{post.category}}
+            </a> 
+                - {{post.author}} 
+                - {{post.publication_date}}
+                {% if user.is_authenticated %}
+                    {% if user.id == post.author.id %} 
+                        - <small><a href="{% url 'update_post' post.pk %}">(Edit)</a> 
+                            | 
+                        <a href="{% url 'delete_post' post.pk %}">(Delete)</a></small>
+                    {% endif %}
+                {% endif %}<br/>
+                {{post.snippet}}
+                </li>
+        {% comment %} line 9, the addition of "|slugify" is used to add a hyphen when the user adds a category with more than one word with spaces in between the words {% endcomment %}
+        {% comment %} {{post.body|slice:":200"}} exhibits body of blog post but with a limit of 200 characters. The addition of |safe does not allow fot html alterations made while editing the post to show, only the actual end result of the html alteration presents itself {% endcomment %}
+    {% endfor %}
+</ul>
+
+
+{% endblock %}
