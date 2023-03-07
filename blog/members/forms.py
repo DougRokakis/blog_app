@@ -33,7 +33,7 @@ class SignUpForm(UserCreationForm):#places styling on three of the fields in our
         self.fields['password1'].widget.attrs['class']='form-control'
         self.fields['password2'].widget.attrs['class']='form-control'
 
-class EditProfileForm(UserChangeForm):#places styling on three of the fields in our registration form
+class EditProfileSettingsForm(UserChangeForm):#places styling on three of the fields in our registration form
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class':'form-control'}))
     first_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class':'form-control'}))
     last_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class':'form-control'}))
@@ -46,6 +46,20 @@ class EditProfileForm(UserChangeForm):#places styling on three of the fields in 
     class Meta: #designates which fields we will be showing on form
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'last_login', 'is_superuser', 'is_staff', 'is_active')
+
+class EditProfileForm(UserChangeForm):#places styling on three of the fields in our registration form
+    bio = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class':'form-control'}))
+    profile_pic = forms.ImageField()
+    website_url = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class':'form-control'}))
+    fb_url = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class':'form-control'}))
+    twitter_url = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class':'form-control'}))
+    instagram_url = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class':'form-control'}))
+    pinterest_url = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class':'form-control'}))
+    
+
+    class Meta: #designates which fields we will be showing on form
+        model = User
+        fields = fields = ('bio','profile_pic','website_url','fb_url','twitter_url','instagram_url','pinterest_url',)
 
 class PasswordChangingForm(PasswordChangeForm):#places styling on three of the fields in our registration form
     old_password = forms.CharField(max_length=100, widget=forms.PasswordInput(attrs={'class':'form-control', 'type':'password'}))

@@ -4,6 +4,9 @@ from django.urls import reverse
 from ckeditor.fields import RichTextField
 from datetime import datetime, date
 
+class Project(models.Model):
+    project_code = RichTextField(verbose_name='Code',null=True,blank=True)
+
 class Category(models.Model):
     name = models.CharField(max_length=255)
 

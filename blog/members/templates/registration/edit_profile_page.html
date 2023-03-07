@@ -4,15 +4,21 @@
 
 {% block content %}
 
-{% if user.is_authenticated && user.id == profile.user.id %}
-    <h1>Edit Profile Page</h1>
-    <br>
-    <div class="form-group">
-    <form method="POST" enctype="multipart/form-data" action="">
-        {% csrf_token %}
-        {{form.as_p}}
-        <button type="submit" class="btn btn-secondary">Update Profile Page</button>
-    </div>
+{% if user.is_authenticated %} 
+    {% if user.id == profile.user.id %} 
+        <h1>Edit Profile Page</h1>
+        <br>
+        <div class="form-group">
+        <form method="POST" enctype="multipart/form-data" action="">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit" class="btn btn-secondary">Update Profile Page</button>
+        </div>
+    {% else %}
+
+        <h1>You should not be here. Please make sure you are logged in and with the correct username</h1>
+
+    {% endif %}
 {% else %}
 
     <h1>You should not be here. Please make sure you are logged in and with the correct username</h1>
